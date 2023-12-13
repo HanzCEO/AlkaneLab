@@ -1,15 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://m1gitmvevvwv"]
+[gd_scene load_steps=17 format=3 uid="uid://m1gitmvevvwv"]
 
+[ext_resource type="Script" path="res://CameraGuy.gd" id="1_41v4d"]
 [ext_resource type="Texture2D" uid="uid://c58bparc3xa5r" path="res://mouse-pointer-2.svg" id="1_bpkyk"]
 [ext_resource type="Script" path="res://Toolbox.gd" id="1_hn73g"]
 [ext_resource type="Texture2D" uid="uid://cxnef7xvhkstv" path="res://hexagon.svg" id="2_ev4y7"]
 [ext_resource type="Texture2D" uid="uid://cjg34bawya0hy" path="res://move.svg" id="3_sis1k"]
 [ext_resource type="Texture2D" uid="uid://7d56vvpcf7l5" path="res://save.svg" id="4_j6pif"]
 [ext_resource type="Texture2D" uid="uid://cv2h60q4vc47m" path="res://folder-open.svg" id="5_6m4y7"]
+[ext_resource type="Texture2D" uid="uid://vqh1d2rg0vbf" path="res://icon.svg" id="8_13r74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivf56"]
 
 [sub_resource type="Gradient" id="Gradient_ppjtq"]
 offsets = PackedFloat32Array(0, 0.767213, 1)
-colors = PackedColorArray(0.700343, 0.744377, 0.841874, 1, 0.851645, 0.873446, 0.921715, 0.495082, 1, 1, 1, 0)
+colors = PackedColorArray(0.700343, 0.744377, 0.841874, 1, 0.913725, 0.92549, 0.952941, 0.2, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_et04s"]
 gradient = SubResource("Gradient_ppjtq")
@@ -63,6 +67,16 @@ corner_radius_bottom_left = 5
 
 [node name="Main" type="Node2D"]
 
+[node name="CameraGuy" type="CharacterBody2D" parent="."]
+script = ExtResource("1_41v4d")
+
+[node name="Camera2D" type="Camera2D" parent="CameraGuy"]
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraGuy"]
+shape = SubResource("RectangleShape2D_ivf56")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
@@ -81,9 +95,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1154.0
-offset_top = -233.0
+offset_top = -232.0
 offset_right = 234.0
-offset_bottom = 922.0
+offset_bottom = 923.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = 1.5708
@@ -216,4 +230,6 @@ layout_mode = 2
 text = "2,3-dimetil pentana"
 horizontal_alignment = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(570, 318)
+texture = ExtResource("8_13r74")

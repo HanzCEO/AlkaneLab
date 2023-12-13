@@ -2,10 +2,10 @@ extends HBoxContainer
 
 var tools = {
 	"Select": "Click on an element to select them",
-	"Element": "",
-	"Move": "",
-	"Save": "",
-	"Load": "Load a file"
+	"Element": "Add new atom to the structure",
+	"Move": "Move elements from one branch to another",
+	"Save": "Save compound to disk",
+	"Load": "Load structure from a file"
 }
 
 func _ready():

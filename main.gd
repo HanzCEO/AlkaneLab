@@ -3,6 +3,9 @@ extends Node2D
 var tool = "Select"
 var dashedCircle = preload("res://circle-dashed.svg")
 var normalCircle = preload("res://circle.svg")
+var activeAtom = false
+var hoveredAtom = false
+var mousePressed  = false
 
 func register_new_atom(atom):
 	$Atoms.add_child(atom)
@@ -14,7 +17,22 @@ func register_new_atom(atom):
 func _process_atom_hover(atom, isEnter):
 	if isEnter:
 		atom.activate_scan_outline()
-	else:
+		hoveredAtom = atom
+	elif not mousePressed:
 		atom.deactivate_scan_outline()
+		hoveredAtom = false
 	
-	
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			if hoveredAtom:
+				hoveredAtom.get_node("Circle").texture = normalCircle
+				mousePressed = true
+				activeAtom = hoveredAtom
+		elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
+			if hoveredAtom:
+				activeAtom.deactivate_scan_outline()
+				activeAtom.get_node("Circle").texture = dashedCircle
+				mousePressed = false
+				if not hoveredAtom is RigidBody2D:
+					activeAtom = false

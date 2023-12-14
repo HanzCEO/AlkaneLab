@@ -245,3 +245,5 @@ position = Vector2(570, 318)
 texture = ExtResource("8_13r74")
 
 [node name="Atoms" type="Node" parent="."]
+
+[node name="Connections" type="Node" parent="."]

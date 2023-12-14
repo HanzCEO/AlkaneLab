@@ -4,6 +4,7 @@ var color = Color.LIGHT_SLATE_GRAY: set = _set_color, get = _get_color
 
 func _ready():
 	_set_color(color)
+	$AnimationPlayer.connect("animation_finished", _invis_scan)
 
 func _physics_process(delta):
 	$Scan.rotation = Global.rotate_things_deg
@@ -14,9 +15,9 @@ func activate_scan_outline():
 
 func deactivate_scan_outline():
 	$AnimationPlayer.play_backwards("activate_scan_outline")
-	$AnimationPlayer.connect("animation_finished", _invis_scan)
-func _invis_scan():
-	$Scan.visible = false
+func _invis_scan(x):
+	if $Scan.modulate.a == 0:
+		$Scan.visible = false
 
 func _set_color(val):
 	color = val

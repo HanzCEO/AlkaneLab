@@ -24,22 +24,43 @@ func _process_atom_hover(atom, isEnter):
 	
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			if hoveredAtom:
-				hoveredAtom.get_node("Circle").texture = normalCircle
-				mousePressed = true
-				activeAtom = hoveredAtom
-		elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
-			if hoveredAtom:
-				activeAtom.deactivate_scan_outline()
-				activeAtom.get_node("Circle").texture = dashedCircle
-				mousePressed = false
-				if not hoveredAtom is RigidBody2D:
-					pass
-				elif Global.selectedTool == "Select":
-					# Make a bond
-					var line = Line2D.new()
-					line.add_point(activeAtom.position)
-					line.add_point(hoveredAtom.position)
-					$Connections.add_child(line)
-				activeAtom = false
+		if Global.selectedTool == "Select":
+			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				if hoveredAtom:
+					hoveredAtom.get_node("Circle").texture = normalCircle
+					mousePressed = true
+					activeAtom = hoveredAtom
+			elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
+				if hoveredAtom:
+					activeAtom.deactivate_scan_outline()
+					activeAtom.get_node("Circle").texture = dashedCircle
+					mousePressed = false
+					if not hoveredAtom is RigidBody2D:
+						pass
+					else:
+						# Make a bond
+						var line = Line2D.new()
+						line.add_point(activeAtom.position)
+						line.add_point(hoveredAtom.position)
+						$Connections.add_child(line)
+					activeAtom = false
+		elif Global.selectedTool == "Move":
+			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				if hoveredAtom:
+					mousePressed = true
+					activeAtom = hoveredAtom
+			elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
+				if activeAtom:
+					activeAtom.set_linear_velocity(Vector2())
+					activeAtom = false
+					mousePressed = false
+
+func _physics_process(delta):
+	if Global.selectedTool == "Move":
+		if activeAtom and mousePressed:
+			var mpos = get_global_mouse_position()
+			var apos = activeAtom.global_position
+			if mpos.distance_to(apos) < 5.0:
+				activeAtom.set_linear_velocity(Vector2())
+			else:
+				activeAtom.set_linear_velocity(apos.direction_to(mpos) * apos.distance_to(mpos) * 1000 * delta)

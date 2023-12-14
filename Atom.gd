@@ -2,14 +2,21 @@ extends RigidBody2D
 
 var color = Color.LIGHT_SLATE_GRAY: set = _set_color, get = _get_color
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	_set_color(color)
 
+func _physics_process(delta):
+	$Scan.rotation = Global.rotate_things_deg
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func activate_scan_outline():
+	$Scan.visible = true
+	$AnimationPlayer.play("activate_scan_outline")
+
+func deactivate_scan_outline():
+	$AnimationPlayer.play_backwards("activate_scan_outline")
+	$AnimationPlayer.connect("animation_finished", _invis_scan)
+func _invis_scan():
+	$Scan.visible = false
 
 func _set_color(val):
 	color = val

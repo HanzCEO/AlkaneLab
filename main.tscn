@@ -1,14 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://m1gitmvevvwv"]
+[gd_scene load_steps=19 format=3 uid="uid://m1gitmvevvwv"]
 
 [ext_resource type="Script" path="res://CameraGuy.gd" id="1_41v4d"]
 [ext_resource type="Texture2D" uid="uid://c58bparc3xa5r" path="res://mouse-pointer-2.svg" id="1_bpkyk"]
+[ext_resource type="Script" path="res://main.gd" id="1_h82fi"]
 [ext_resource type="Script" path="res://Toolbox.gd" id="1_hn73g"]
 [ext_resource type="Texture2D" uid="uid://cxnef7xvhkstv" path="res://hexagon.svg" id="2_ev4y7"]
 [ext_resource type="Texture2D" uid="uid://7d56vvpcf7l5" path="res://save.svg" id="4_j6pif"]
 [ext_resource type="Texture2D" uid="uid://cv2h60q4vc47m" path="res://folder-open.svg" id="5_6m4y7"]
 [ext_resource type="Texture2D" uid="uid://b7xk1iw6hlkfn" path="res://waypoints.svg" id="5_rywea"]
+[ext_resource type="Script" path="res://ElementButton.gd" id="6_qm78i"]
 [ext_resource type="Texture2D" uid="uid://vqh1d2rg0vbf" path="res://icon.svg" id="8_13r74"]
-[ext_resource type="PackedScene" uid="uid://bxc5rr5uadgs1" path="res://Atom.tscn" id="9_7osj6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivf56"]
 
@@ -67,6 +68,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="ButtonGroup" id="ButtonGroup_oiv4n"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_h82fi")
 
 [node name="CameraGuy" type="CharacterBody2D" parent="."]
 collision_layer = 2
@@ -166,19 +168,6 @@ icon = ExtResource("1_bpkyk")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ElementButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/ToolsContainer/HBoxContainer"]
-custom_minimum_size = Vector2(34, 34)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
-theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hqxrf")
-theme_override_styles/focus = SubResource("StyleBoxFlat_srn15")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_oiv4n")
-icon = ExtResource("2_ev4y7")
-icon_alignment = 1
-expand_icon = true
-
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/BottomContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -189,13 +178,25 @@ layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 1
 
-[node name="ViewButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+[node name="ElementButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
 theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
-theme_override_styles/focus = SubResource("StyleBoxFlat_i2sji")
+icon = ExtResource("2_ev4y7")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("6_qm78i")
+
+[node name="ViewButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
+theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
 icon = ExtResource("5_rywea")
 icon_alignment = 1
 expand_icon = true
@@ -203,10 +204,10 @@ expand_icon = true
 [node name="SaveButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
 theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
-theme_override_styles/focus = SubResource("StyleBoxFlat_i2sji")
 icon = ExtResource("4_j6pif")
 icon_alignment = 1
 expand_icon = true
@@ -214,10 +215,10 @@ expand_icon = true
 [node name="LoadButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
 theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
-theme_override_styles/focus = SubResource("StyleBoxFlat_i2sji")
 icon = ExtResource("5_6m4y7")
 icon_alignment = 1
 expand_icon = true
@@ -244,5 +245,3 @@ position = Vector2(570, 318)
 texture = ExtResource("8_13r74")
 
 [node name="Atoms" type="Node" parent="."]
-
-[node name="Atom" parent="Atoms" instance=ExtResource("9_7osj6")]

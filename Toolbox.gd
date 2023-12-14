@@ -10,10 +10,12 @@ var tools = {
 
 func _ready():
 	$SelectButton.button_group.connect("pressed", __on_button_pressed)
+	
 	for button in get_children():
 		button.connect("mouse_entered", __change_tool_desc_button.bind(button))
 	for button in $"../../PanelContainer/HBoxContainer".get_children():
 		button.connect("mouse_entered", __change_tool_desc_button.bind(button))
+		
 	$"../..".connect("mouse_exited", __change_tool_desc_active)
 	__change_tool_desc_active()
 

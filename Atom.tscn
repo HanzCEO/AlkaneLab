@@ -1,16 +1,93 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxc5rr5uadgs1"]
+[gd_scene load_steps=8 format=3 uid="uid://bxc5rr5uadgs1"]
 
 [ext_resource type="Script" path="res://Atom.gd" id="1_j38eg"]
-[ext_resource type="Texture2D" uid="uid://dush12ond50o6" path="res://circle.svg" id="2_qktgq"]
+[ext_resource type="Texture2D" uid="uid://btgk7smrvb6mk" path="res://circle-dashed.svg" id="2_ojau2"]
+[ext_resource type="Texture2D" uid="uid://nyu7blaa5jgl" path="res://scan.svg" id="3_w2t1i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dx16"]
 
+[sub_resource type="Animation" id="Animation_ebchb"]
+resource_name = "activate_scan_outline"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scan:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.33, 0.33), Vector2(0.3, 0.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scan:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lj3wv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Scan:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Scan:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2bno0"]
+_data = {
+"RESET": SubResource("Animation_lj3wv"),
+"activate_scan_outline": SubResource("Animation_ebchb")
+}
+
 [node name="Atom" type="RigidBody2D"]
+input_pickable = true
 script = ExtResource("1_j38eg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2.2, 2.2)
 shape = SubResource("CircleShape2D_4dx16")
 
 [node name="Circle" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_qktgq")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_ojau2")
+
+[node name="Scan" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.937255, 0.721569, 0.407843, 1)
+self_modulate = Color(1, 1, 1, 0)
+z_index = 1
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("3_w2t1i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2bno0")
+}

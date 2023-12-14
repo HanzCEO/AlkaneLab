@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btgk7smrvb6mk"
-path="res://.godot/imported/circle-dashed.svg-f44a7312256b29df2682b1ee7a695aba.ctex"
+uid="uid://nyu7blaa5jgl"
+path="res://.godot/imported/scan.svg-e4f76c49090e51a9dfb10f0d64d32a33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://circle-dashed.svg"
-dest_files=["res://.godot/imported/circle-dashed.svg-f44a7312256b29df2682b1ee7a695aba.ctex"]
+source_file="res://scan.svg"
+dest_files=["res://.godot/imported/scan.svg-e4f76c49090e51a9dfb10f0d64d32a33.ctex"]
 
 [params]
 

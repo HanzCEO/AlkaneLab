@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://m1gitmvevvwv"]
+[gd_scene load_steps=20 format=3 uid="uid://m1gitmvevvwv"]
 
 [ext_resource type="Script" path="res://CameraGuy.gd" id="1_41v4d"]
 [ext_resource type="Texture2D" uid="uid://c58bparc3xa5r" path="res://mouse-pointer-2.svg" id="1_bpkyk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cv2h60q4vc47m" path="res://folder-open.svg" id="5_6m4y7"]
 [ext_resource type="Texture2D" uid="uid://b7xk1iw6hlkfn" path="res://waypoints.svg" id="5_rywea"]
 [ext_resource type="Script" path="res://ElementButton.gd" id="6_qm78i"]
+[ext_resource type="Texture2D" uid="uid://cjg34bawya0hy" path="res://move.svg" id="6_qqdah"]
 [ext_resource type="Texture2D" uid="uid://vqh1d2rg0vbf" path="res://icon.svg" id="8_13r74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivf56"]
@@ -173,6 +174,19 @@ toggle_mode = true
 button_pressed = true
 button_group = SubResource("ButtonGroup_oiv4n")
 icon = ExtResource("1_bpkyk")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MoveButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/ToolsContainer/HBoxContainer"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
+theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hqxrf")
+theme_override_styles/focus = SubResource("StyleBoxFlat_srn15")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_oiv4n")
+icon = ExtResource("6_qqdah")
 icon_alignment = 1
 expand_icon = true
 

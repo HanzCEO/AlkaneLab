@@ -36,7 +36,7 @@ func _input(event):
 				mousePressed = false
 				if not hoveredAtom is RigidBody2D:
 					pass
-				else:
+				elif Global.selectedTool == "Select":
 					# Make a bond
 					var line = Line2D.new()
 					line.add_point(activeAtom.position)

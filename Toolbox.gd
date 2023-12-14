@@ -2,6 +2,7 @@ extends HBoxContainer
 
 var tools = {
 	"Select": "Click on an element to select them",
+	"Move": "Move an element from one place to another",
 	"Element": "Add new atom to the structure",
 	"View": "Switch between beginner view to compact view",
 	"Save": "Save compound to disk",
@@ -33,3 +34,4 @@ func __change_tool_desc_button(button: BaseButton):
 
 func __on_button_pressed(button: BaseButton):
 	__change_tool_desc_button(button)
+	Global.selectedTool = button.name.replace("Button", "")

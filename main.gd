@@ -35,4 +35,11 @@ func _input(event):
 				activeAtom.get_node("Circle").texture = dashedCircle
 				mousePressed = false
 				if not hoveredAtom is RigidBody2D:
-					activeAtom = false
+					pass
+				else:
+					# Make a bond
+					var line = Line2D.new()
+					line.add_point(activeAtom.position)
+					line.add_point(hoveredAtom.position)
+					$Connections.add_child(line)
+				activeAtom = false

@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://c58bparc3xa5r" path="res://mouse-pointer-2.svg" id="1_bpkyk"]
 [ext_resource type="Script" path="res://Toolbox.gd" id="1_hn73g"]
 [ext_resource type="Texture2D" uid="uid://cxnef7xvhkstv" path="res://hexagon.svg" id="2_ev4y7"]
-[ext_resource type="Texture2D" uid="uid://cjg34bawya0hy" path="res://move.svg" id="3_sis1k"]
 [ext_resource type="Texture2D" uid="uid://7d56vvpcf7l5" path="res://save.svg" id="4_j6pif"]
 [ext_resource type="Texture2D" uid="uid://cv2h60q4vc47m" path="res://folder-open.svg" id="5_6m4y7"]
+[ext_resource type="Texture2D" uid="uid://b7xk1iw6hlkfn" path="res://waypoints.svg" id="5_rywea"]
 [ext_resource type="Texture2D" uid="uid://vqh1d2rg0vbf" path="res://icon.svg" id="8_13r74"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivf56"]
@@ -105,19 +105,17 @@ texture = SubResource("GradientTexture1D_et04s")
 flip_h = true
 
 [node name="BottomContainer" type="VBoxContainer" parent="CanvasLayer"]
-z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -110.0
-offset_top = -123.0
-offset_right = 110.0
+offset_left = -355.0
+offset_top = -134.0
+offset_right = 355.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
-size_flags_horizontal = 4
 theme_override_constants/separation = 20
 alignment = 1
 
@@ -135,18 +133,23 @@ theme_override_colors/font_color = Color(0.560784, 0.560784, 0.560784, 1)
 text = "Toolt description abcdef"
 horizontal_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/BottomContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="ToolsContainer" type="PanelContainer" parent="CanvasLayer/BottomContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_tjrki")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/BottomContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/BottomContainer/HBoxContainer/ToolsContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 1
 script = ExtResource("1_hn73g")
 
-[node name="SelectButton" type="Button" parent="CanvasLayer/BottomContainer/PanelContainer/HBoxContainer"]
+[node name="SelectButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/ToolsContainer/HBoxContainer"]
 custom_minimum_size = Vector2(34, 34)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
@@ -160,7 +163,7 @@ icon = ExtResource("1_bpkyk")
 icon_alignment = 1
 expand_icon = true
 
-[node name="ElementButton" type="Button" parent="CanvasLayer/BottomContainer/PanelContainer/HBoxContainer"]
+[node name="ElementButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/ToolsContainer/HBoxContainer"]
 custom_minimum_size = Vector2(34, 34)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
@@ -173,47 +176,50 @@ icon = ExtResource("2_ev4y7")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MoveButton" type="Button" parent="CanvasLayer/BottomContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(34, 34)
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/BottomContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_tjrki")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="ViewButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
 theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hqxrf")
-theme_override_styles/focus = SubResource("StyleBoxFlat_srn15")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_oiv4n")
-icon = ExtResource("3_sis1k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i2sji")
+icon = ExtResource("5_rywea")
 icon_alignment = 1
 expand_icon = true
 
-[node name="SaveButton" type="Button" parent="CanvasLayer/BottomContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(34, 34)
+[node name="SaveButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
 theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hqxrf")
-theme_override_styles/focus = SubResource("StyleBoxFlat_srn15")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_oiv4n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i2sji")
 icon = ExtResource("4_j6pif")
 icon_alignment = 1
 expand_icon = true
 
-[node name="LoadButton" type="Button" parent="CanvasLayer/BottomContainer/PanelContainer/HBoxContainer"]
-custom_minimum_size = Vector2(34, 34)
+[node name="LoadButton" type="Button" parent="CanvasLayer/BottomContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_i2sji")
 theme_override_styles/hover = SubResource("StyleBoxFlat_srn15")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_hqxrf")
-theme_override_styles/focus = SubResource("StyleBoxFlat_srn15")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_oiv4n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i2sji")
+theme_override_styles/focus = SubResource("StyleBoxFlat_i2sji")
 icon = ExtResource("5_6m4y7")
 icon_alignment = 1
 expand_icon = true
 
 [node name="UpperContainer" type="VBoxContainer" parent="CanvasLayer"]
-z_index = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -233,3 +239,5 @@ horizontal_alignment = 1
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(570, 318)
 texture = ExtResource("8_13r74")
+
+[node name="Atoms" type="Node" parent="."]

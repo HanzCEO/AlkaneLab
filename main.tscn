@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://m1gitmvevvwv"]
+[gd_scene load_steps=18 format=3 uid="uid://m1gitmvevvwv"]
 
 [ext_resource type="Script" path="res://CameraGuy.gd" id="1_41v4d"]
 [ext_resource type="Texture2D" uid="uid://c58bparc3xa5r" path="res://mouse-pointer-2.svg" id="1_bpkyk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cv2h60q4vc47m" path="res://folder-open.svg" id="5_6m4y7"]
 [ext_resource type="Texture2D" uid="uid://b7xk1iw6hlkfn" path="res://waypoints.svg" id="5_rywea"]
 [ext_resource type="Texture2D" uid="uid://vqh1d2rg0vbf" path="res://icon.svg" id="8_13r74"]
+[ext_resource type="PackedScene" uid="uid://bxc5rr5uadgs1" path="res://Atom.tscn" id="9_7osj6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivf56"]
 
@@ -68,6 +69,8 @@ corner_radius_bottom_left = 5
 [node name="Main" type="Node2D"]
 
 [node name="CameraGuy" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_41v4d")
 
 [node name="Camera2D" type="Camera2D" parent="CameraGuy"]
@@ -241,3 +244,5 @@ position = Vector2(570, 318)
 texture = ExtResource("8_13r74")
 
 [node name="Atoms" type="Node" parent="."]
+
+[node name="Atom" parent="Atoms" instance=ExtResource("9_7osj6")]

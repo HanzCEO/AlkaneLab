@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxc5rr5uadgs1"]
+
+[ext_resource type="Script" path="res://Atom.gd" id="1_j38eg"]
+[ext_resource type="Texture2D" uid="uid://dush12ond50o6" path="res://circle.svg" id="2_qktgq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4dx16"]
+
+[node name="Atom" type="RigidBody2D"]
+script = ExtResource("1_j38eg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4dx16")
+
+[node name="Circle" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_qktgq")

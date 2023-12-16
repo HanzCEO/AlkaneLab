@@ -31,7 +31,7 @@ func _input(event):
 					mousePressed = true
 					activeAtom = hoveredAtom
 			elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
-				if hoveredAtom:
+				if hoveredAtom and activeAtom:
 					activeAtom.deactivate_scan_outline()
 					activeAtom.get_node("Circle").texture = dashedCircle
 					mousePressed = false

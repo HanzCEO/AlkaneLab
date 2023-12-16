@@ -62,7 +62,11 @@ func _input(event):
 					var connections = hoveredAtom.get_connection_lines().duplicate()
 					for connection in connections:
 						hoveredAtom.disconnect_with(connection["atom"])
-					hoveredAtom.queue_free()
+					
+					var t: Tween = hoveredAtom.create_tween()
+					t.tween_property(hoveredAtom, "scale", Vector2.ZERO, 0.2)
+					t.connect("finished", hoveredAtom.queue_free)
+					t.play()
 					hoveredAtom = false
 
 func _physics_process(delta):

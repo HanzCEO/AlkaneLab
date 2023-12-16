@@ -3,6 +3,7 @@ extends HBoxContainer
 var tools = {
 	"Select": "Click on an element to select them",
 	"Move": "Move an element from one place to another",
+	"Delete": "Click an element to erase them from the structure",
 	"Element": "Add new atom to the structure",
 	"View": "Switch between beginner view to compact view",
 	"Save": "Save compound to disk",

@@ -56,6 +56,14 @@ func _input(event):
 					activeAtom.linear_damp = 5
 					activeAtom = false
 					mousePressed = false
+		elif Global.selectedTool == "Delete":
+			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				if hoveredAtom:
+					var connections = hoveredAtom.get_connection_lines().duplicate()
+					for connection in connections:
+						hoveredAtom.disconnect_with(connection["atom"])
+					hoveredAtom.queue_free()
+					hoveredAtom = false
 
 func _physics_process(delta):
 	if Global.selectedTool == "Move":

@@ -40,9 +40,11 @@ func _input(event):
 					else:
 						# Make a bond
 						var line = Line2D.new()
-						line.add_point(activeAtom.position)
 						line.add_point(hoveredAtom.position)
+						line.add_point(activeAtom.position)
 						$Connections.add_child(line)
+						activeAtom.register_connection_with(hoveredAtom, line, 1)
+						hoveredAtom.register_connection_with(activeAtom, line, 0)
 					activeAtom = false
 		elif Global.selectedTool == "Move":
 			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
@@ -63,4 +65,7 @@ func _physics_process(delta):
 			if mpos.distance_to(apos) < 5.0:
 				activeAtom.set_linear_velocity(Vector2())
 			else:
+				var lines = activeAtom.get_connection_lines()
+				for line in lines:
+					line["lineNode"].points[line["index"]] = activeAtom.global_position
 				activeAtom.set_linear_velocity(apos.direction_to(mpos) * apos.distance_to(mpos) * 1000 * delta)

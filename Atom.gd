@@ -33,10 +33,13 @@ func _invis_scan(x):
 
 func register_connection_with(atom, line, atomPointIndex):
 	connections.append({
+		"id": Global.connection_i,
 		"atom": atom,
 		"lineNode": line,
 		"index": atomPointIndex
 	})
+	
+	Global.connection_i += 1
 func get_connection_lines():
 	return connections
 
@@ -46,7 +49,7 @@ func disconnect_with(atom, loopQF=true):
 			if loopQF:
 				atom.disconnect_with(self, false)
 			connection["lineNode"].queue_free()
-		connections.erase(connection)
+			connections.erase(connection)
 
 func rerender_connection_lines():
 	rerender = true

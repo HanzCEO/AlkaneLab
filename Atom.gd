@@ -2,6 +2,8 @@ extends RigidBody2D
 
 var color = Color.LIGHT_SLATE_GRAY: set = _set_color, get = _get_color
 var connections = []
+var isAtom = true
+var rerender = false
 
 func _ready():
 	_set_color(color)
@@ -9,6 +11,15 @@ func _ready():
 
 func _physics_process(delta):
 	$Scan.rotation = Global.rotate_things_deg
+	
+	if linear_velocity != Vector2.ZERO:
+		rerender = true
+	
+	if rerender:
+		var lines = get_connection_lines()
+		for line in lines:
+			line["lineNode"].points[line["index"]] = global_position
+		rerender = false
 
 func activate_scan_outline():
 	$Scan.visible = true
@@ -29,9 +40,16 @@ func register_connection_with(atom, line, atomPointIndex):
 func get_connection_lines():
 	return connections
 
+func rerender_connection_lines():
+	rerender = true
+
 func _set_color(val):
 	color = val
 	$Circle.modulate = val
 
 func _get_color():
 	return color
+
+func _on_body_collision(body):
+	if body.isAtom:
+		body.rerender_connection_lines()

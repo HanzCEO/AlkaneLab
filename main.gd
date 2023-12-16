@@ -53,7 +53,7 @@ func _input(event):
 					activeAtom = hoveredAtom
 			elif event.button_index == MOUSE_BUTTON_LEFT and not event.is_pressed():
 				if activeAtom:
-					activeAtom.set_linear_velocity(Vector2())
+					activeAtom.linear_damp = 5
 					activeAtom = false
 					mousePressed = false
 
@@ -62,10 +62,10 @@ func _physics_process(delta):
 		if activeAtom and mousePressed:
 			var mpos = get_global_mouse_position()
 			var apos = activeAtom.global_position
-			if mpos.distance_to(apos) < 5.0:
+			if mpos.distance_to(apos) < 2.0:
 				activeAtom.set_linear_velocity(Vector2())
+				activeAtom.linear_damp = 5
 			else:
-				var lines = activeAtom.get_connection_lines()
-				for line in lines:
-					line["lineNode"].points[line["index"]] = activeAtom.global_position
+				activeAtom.rerender_connection_lines()
+				activeAtom.linear_damp = 0
 				activeAtom.set_linear_velocity(apos.direction_to(mpos) * apos.distance_to(mpos) * 1000 * delta)

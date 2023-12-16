@@ -70,6 +70,10 @@ _data = {
 [node name="Atom" type="RigidBody2D"]
 z_index = 1
 input_pickable = true
+max_contacts_reported = 100
+contact_monitor = true
+linear_damp_mode = 1
+linear_damp = 5.0
 script = ExtResource("1_j38eg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -92,3 +96,5 @@ texture = ExtResource("3_w2t1i")
 libraries = {
 "": SubResource("AnimationLibrary_2bno0")
 }
+
+[connection signal="body_entered" from="." to="." method="_on_body_collision"]

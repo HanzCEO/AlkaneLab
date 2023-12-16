@@ -17,7 +17,8 @@ func _ready():
 	for button in $"../../PanelContainer/HBoxContainer".get_children():
 		button.connect("mouse_entered", __change_tool_desc_button.bind(button))
 		
-	$"../..".connect("mouse_exited", __change_tool_desc_active)
+	$"..".connect("mouse_exited", __change_tool_desc_active)
+	$"../../PanelContainer".connect("mouse_exited", __change_tool_desc_active)
 	__change_tool_desc_active()
 
 func __change_tool_desc_active():

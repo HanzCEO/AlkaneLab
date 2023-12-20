@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://m1gitmvevvwv"]
+[gd_scene load_steps=22 format=3 uid="uid://m1gitmvevvwv"]
 
 [ext_resource type="Script" path="res://CameraGuy.gd" id="1_41v4d"]
 [ext_resource type="Texture2D" uid="uid://c58bparc3xa5r" path="res://mouse-pointer-2.svg" id="1_bpkyk"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cjg34bawya0hy" path="res://move.svg" id="6_qqdah"]
 [ext_resource type="Texture2D" uid="uid://hl6ttgss3xp0" path="res://eraser.svg" id="7_e81h6"]
 [ext_resource type="Texture2D" uid="uid://vqh1d2rg0vbf" path="res://icon.svg" id="8_13r74"]
+[ext_resource type="Script" path="res://CompoundName.gd" id="13_5fn30"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivf56"]
 
@@ -271,7 +272,8 @@ grow_horizontal = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Label" type="Label" parent="CanvasLayer/UpperContainer"]
+[node name="CompoundName" type="Label" parent="CanvasLayer/UpperContainer"]
 layout_mode = 2
 text = "2,3-dimetil pentana"
 horizontal_alignment = 1
+script = ExtResource("13_5fn30")

@@ -4,8 +4,11 @@ var color = Color.LIGHT_SLATE_GRAY: set = _set_color, get = _get_color
 var connections = []
 var isAtom = true
 var rerender = false
+var atomId = 0
 
 func _ready():
+	atomId = Global.atomId_i + 1
+	Global.atomId_i += 1
 	_set_color(color)
 	$AnimationPlayer.connect("animation_finished", _invis_scan)
 

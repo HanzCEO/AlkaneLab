@@ -1,5 +1,10 @@
 extends Label
 
+var compoundNumNames = [
+	"meth", "eth", "prop", "but",
+	"pent", "hex", "hept", "oct", "non", "dec"
+]
+
 func _process(delta):
 	if Input.is_key_pressed(KEY_I):
 		analyze()
@@ -33,6 +38,7 @@ func analyze():
 	#print(mainBranch)
 	#print_tree_(mainBranch["tree"])
 	color_main_branch(mainBranch)
+	name_main_branch(mainBranch)
 
 func create_tree_from(atom: Node, ignoreId = -1):
 	var connections = atom.get_connection_lines()
@@ -99,3 +105,6 @@ func color_main_branch(mainBranch):
 		current_ = parent_
 		parent_ = parent_.get_parent()
 		#print(current_, parent_)
+
+func name_main_branch(mainBranch):
+	text = compoundNumNames[mainBranch["deepest"]["depth"]] + "ane"

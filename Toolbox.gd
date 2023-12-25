@@ -5,9 +5,9 @@ var tools = {
 	"Move": "Move an element from one place to another",
 	"Delete": "Click an element to erase them from the structure",
 	"Element": "Add new atom to the structure",
-	"View": "Switch between beginner view to compact view",
-	"Save": "Save compound to disk",
-	"Load": "Load structure from a file"
+	"View": "(Coming Soon) Switch between beginner view to compact view",
+	"Save": "(Coming Soon) Save compound to disk",
+	"Load": "(Coming Soon) Load structure from a file"
 }
 
 func _ready():

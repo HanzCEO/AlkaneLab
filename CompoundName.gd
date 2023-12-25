@@ -91,7 +91,7 @@ func find_atom_from(tree, id):
 # differentiate them from its branches.
 
 func color_main_branch(mainBranch):
-	if not tree:
+	if not mainBranch["tree"]:
 		return
 	
 	var tree = mainBranch["tree"]

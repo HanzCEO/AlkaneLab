@@ -30,17 +30,23 @@ func analyze():
 		else:
 			pass
 		i += 1
-	print(mainBranch)
-	print_tree_(mainBranch["tree"])
+	#print(mainBranch)
+	#print_tree_(mainBranch["tree"])
+	color_main_branch(mainBranch)
 
 func create_tree_from(atom: Node, ignoreId = -1):
 	var connections = atom.get_connection_lines()
 	var tree = atom.duplicate()
 	tree.atomId = atom.atomId
+	tree.ref = atom
 	
 	for child in tree.get_children():
 		child.free()
 	for connection in connections:
+		# Clean connections
+		connection["lineNode"].default_color = Color.WHITE
+		
+		# Filtering
 		if not connection["atom"].atomId == ignoreId:
 			if not find_atom_from(tree, connection["atom"].atomId):
 				var newTree = create_tree_from(connection["atom"], tree.atomId)
@@ -72,3 +78,24 @@ func find_atom_from(tree, id):
 		if child.atomId == id:
 			return child
 	return null
+
+# Step 2:
+# After searching for the main branch,
+# we need to color the connections to
+# differentiate them from its branches.
+
+func color_main_branch(mainBranch):
+	var tree = mainBranch["tree"]
+	var deepest = mainBranch["deepest"]
+	
+	var current_ = deepest["node"]
+	var parent_ = deepest["parent"]
+	while parent_ != null:
+		# Color lines
+		for connection in current_.ref.get_connection_lines():
+			if connection["atom"].atomId == parent_.atomId:
+				connection["lineNode"].default_color = Color.AQUAMARINE
+				break
+		current_ = parent_
+		parent_ = parent_.get_parent()
+		#print(current_, parent_)

@@ -13,7 +13,10 @@ func register_new_atom(atom):
 	atom.position = $CameraGuy.global_position
 	atom.connect("mouse_entered", _process_atom_hover.bind(atom, 1))
 	atom.connect("mouse_exited", _process_atom_hover.bind(atom, 0))
-	
+
+func _ready():
+	Global.set_world(self)
+
 func _process_atom_hover(atom, isEnter):
 	if isEnter:
 		atom.activate_scan_outline()
@@ -68,6 +71,7 @@ func _input(event):
 					t.connect("finished", hoveredAtom.queue_free)
 					t.play()
 					hoveredAtom = false
+					Global.analyze_compound_name()
 
 func _physics_process(delta):
 	if Global.selectedTool == "Move":

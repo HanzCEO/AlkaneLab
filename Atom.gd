@@ -5,6 +5,7 @@ var connections = []
 var isAtom = true
 var rerender = false
 var atomId = 0
+var ref = null
 
 func _ready():
 	atomId = Global.atomId_i + 1
@@ -43,6 +44,7 @@ func register_connection_with(atom, line, atomPointIndex):
 	})
 	
 	Global.connection_i += 1
+	Global.analyze_compound_name()
 func get_connection_lines():
 	return connections
 

@@ -4,6 +4,7 @@ var tools = {
 	"Select": "Click on an element to select them",
 	"Move": "Move an element from one place to another",
 	"Delete": "Click an element to erase them from the structure",
+	"Duplicate": "Create a look-alike element by clicking on an atom",
 	"Element": "Add new atom to the structure",
 	"View": "(Coming Soon) Switch between beginner view to compact view",
 	"Save": "(Coming Soon) Save compound to disk",

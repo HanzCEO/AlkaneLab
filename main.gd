@@ -72,6 +72,13 @@ func _input(event):
 					t.play()
 					hoveredAtom = false
 					Global.analyze_compound_name()
+		elif Global.selectedTool == "Duplicate":
+			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+				if hoveredAtom:
+					var dup = hoveredAtom.duplicate()
+					register_new_atom(dup)
+					dup.position = hoveredAtom.position + Vector2(randi_range(-1, 1), 0)
+					hoveredAtom = false
 
 func _physics_process(delta):
 	if Global.selectedTool == "Move":

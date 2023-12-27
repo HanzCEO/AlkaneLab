@@ -110,4 +110,5 @@ func color_main_branch(mainBranch):
 		#print(current_, parent_)
 
 func name_main_branch(mainBranch):
+	#print_tree_(mainBranch["tree"])
 	text = compoundNumNames[mainBranch["deepest"]["depth"]] + "ane"

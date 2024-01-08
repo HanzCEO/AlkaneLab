@@ -4,6 +4,8 @@ var compoundNumNames = [
 	"meth", "eth", "prop", "but",
 	"pent", "hex", "hept", "oct", "non", "dec"
 ]
+const MAIN_BRANCH_COLOR = Color.AQUAMARINE
+const BRANCH_COLOR = Color.BLACK
 
 func _process(delta):
 	if Input.is_key_pressed(KEY_I):
@@ -56,6 +58,7 @@ func create_tree_from(atom: Node, ignoreId = -1):
 		if not connection["atom"].atomId == ignoreId:
 			if not find_atom_from(tree, connection["atom"].atomId):
 				var newTree = create_tree_from(connection["atom"], tree.atomId)
+				newTree.parentobj = tree
 				tree.add_child(newTree)
 	return tree
 
@@ -103,12 +106,62 @@ func color_main_branch(mainBranch):
 		# Color lines
 		for connection in current_.ref.get_connection_lines():
 			if connection["atom"].atomId == parent_.atomId:
-				connection["lineNode"].default_color = Color.AQUAMARINE
+				connection["lineNode"].default_color = MAIN_BRANCH_COLOR
 				break
 		current_ = parent_
 		parent_ = parent_.get_parent()
 		#print(current_, parent_)
 
+func reset_checked_from_tree(tree):
+	for children in tree.get_children():
+		children.isChecked = false
+		reset_checked_from_tree(children)
+
+func get_branches_from_main(mainBranch):
+	if not mainBranch["tree"]:
+		return
+
+	var tree = mainBranch["tree"]
+	reset_checked_from_tree(tree)
+
+	var branches = []
+
+	# Walk the main branch for branches
+	var current_ = tree
+	var friend = null
+	while current_.get_child_count() > 0:
+		for connection in current_.ref.get_connection_lines():
+			print(connection["lineNode"].default_color)
+			if connection["lineNode"].default_color == MAIN_BRANCH_COLOR:
+				# This is main branch
+				var atom_ = find_atom_from(current_, connection["atom"].atomId)
+				friend = atom_
+			else:
+				# A new branch detected
+				var branchFirstAtom = find_atom_from(current_, connection["atom"].atomId)
+				walk_atom_children_1(branchFirstAtom)
+		if (friend != null):
+			current_ = friend
+		else:
+			break
+
+	reset_checked_from_tree(tree)
+	return branches
+
+func walk_atom_children_1(atom):
+	if atom.isChecked:
+		return
+
+	# Change connection line color to black
+	for conn in atom.ref.get_connection_lines():
+		conn["lineNode"].default_color = BRANCH_COLOR
+	atom.isChecked = true
+
+	for child in atom.get_children():
+		walk_atom_children_1(child)
+
 func name_main_branch(mainBranch):
+	# TODO: Sort branch naming by alphabet
 	#print_tree_(mainBranch["tree"])
+	var branches = get_branches_from_main(mainBranch)
 	text = compoundNumNames[mainBranch["deepest"]["depth"]] + "ane"

@@ -6,6 +6,8 @@ var isAtom = true
 var rerender = false
 var atomId = 0
 var ref = null
+var isChecked = false
+var parentobj = null
 
 func _ready():
 	atomId = Global.atomId_i + 1

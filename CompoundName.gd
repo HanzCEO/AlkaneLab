@@ -129,9 +129,9 @@ func get_branches_from_main(mainBranch):
 	# Walk the main branch for branches
 	var current_ = tree
 	var friend = null
+	var index = 1
 	while current_.get_child_count() > 0:
 		for connection in current_.ref.get_connection_lines():
-			print(connection["lineNode"].default_color)
 			if connection["lineNode"].default_color == MAIN_BRANCH_COLOR:
 				# This is main branch
 				var atom_ = find_atom_from(current_, connection["atom"].atomId)
@@ -140,16 +140,18 @@ func get_branches_from_main(mainBranch):
 				# A new branch detected
 				var branchFirstAtom = find_atom_from(current_, connection["atom"].atomId)
 				walk_atom_children_1(branchFirstAtom)
+				branches.append({"index": index, "atom": branchFirstAtom})
 		if (friend != null):
 			current_ = friend
 		else:
 			break
+		index += 1
 
 	reset_checked_from_tree(tree)
 	return branches
 
 func walk_atom_children_1(atom):
-	if atom.isChecked:
+	if atom and atom.isChecked:
 		return
 
 	# Change connection line color to black
@@ -160,8 +162,29 @@ func walk_atom_children_1(atom):
 	for child in atom.get_children():
 		walk_atom_children_1(child)
 
+func name_branches(branches):
+	var names = {}
+	var namesFinal = ""
+	for branch in branches:
+		var length = walk_atom_children_2(branch["atom"])
+		if not ((compoundNumNames[length] + "yl") in names):
+			names[compoundNumNames[length] + "yl"] = []
+		names[compoundNumNames[length] + "yl"].append(branch["index"])
+	for key in names.keys():
+		names[key].sort()
+		namesFinal += ",".join(names[key]) + '-' + key + ' '
+
+	return namesFinal
+
+func walk_atom_children_2(atom, l=1):
+	var length = l # Already includes `atom`
+	for child in atom.get_children():
+		length += walk_atom_children_2(child, length + 1)
+	return length
+
 func name_main_branch(mainBranch):
 	# TODO: Sort branch naming by alphabet
 	#print_tree_(mainBranch["tree"])
 	var branches = get_branches_from_main(mainBranch)
-	text = compoundNumNames[mainBranch["deepest"]["depth"]] + "ane"
+	var branchesNamed = name_branches(branches)
+	text = branchesNamed + compoundNumNames[mainBranch["deepest"]["depth"]] + "ane"

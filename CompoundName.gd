@@ -39,6 +39,8 @@ func analyze():
 		i += 1
 	#print(mainBranch)
 	#print_tree_(mainBranch["tree"])
+	reset_branch_color_from_tree(mainBranch["tree"])
+
 	color_main_branch(mainBranch)
 	name_main_branch(mainBranch)
 
@@ -51,9 +53,6 @@ func create_tree_from(atom: Node, ignoreId = -1):
 	for child in tree.get_children():
 		child.free()
 	for connection in connections:
-		# Clean connections
-		connection["lineNode"].default_color = Color.WHITE
-		
 		# Filtering
 		if not connection["atom"].atomId == ignoreId:
 			if not find_atom_from(tree, connection["atom"].atomId):
@@ -117,6 +116,12 @@ func reset_checked_from_tree(tree):
 		children.isChecked = false
 		reset_checked_from_tree(children)
 
+func reset_branch_color_from_tree(tree):
+	for children in tree.get_children():
+		for conn in children.ref.get_connection_lines():
+			conn["lineNode"].default_color = Color.WHITE
+		reset_branch_color_from_tree(children)
+
 func get_branches_from_main(mainBranch):
 	if not mainBranch["tree"]:
 		return
@@ -151,7 +156,7 @@ func get_branches_from_main(mainBranch):
 	return branches
 
 func walk_atom_children_1(atom):
-	if atom and atom.isChecked:
+	if not atom or atom.isChecked:
 		return
 
 	# Change connection line color to black
@@ -165,8 +170,11 @@ func walk_atom_children_1(atom):
 func name_branches(branches):
 	var names = {}
 	var namesFinal = ""
+	# print(branches)
 	for branch in branches:
 		var length = walk_atom_children_2(branch["atom"])
+		if length > compoundNumNames.size():
+			continue
 		if not ((compoundNumNames[length] + "yl") in names):
 			names[compoundNumNames[length] + "yl"] = []
 		names[compoundNumNames[length] + "yl"].append(branch["index"])
@@ -176,15 +184,26 @@ func name_branches(branches):
 
 	return namesFinal
 
-func walk_atom_children_2(atom, l=1):
+func walk_atom_children_2(atom):
+	var lengths = [0]
+	for child in atom.get_children():
+		lengths.append(walk_atom_children_2_1(child, 2))
+	return lengths.max()
+
+func walk_atom_children_2_1(atom, l=1):
 	var length = l # Already includes `atom`
 	for child in atom.get_children():
-		length += walk_atom_children_2(child, length + 1)
+		length += walk_atom_children_2_1(child, length + 1) - length
 	return length
 
 func name_main_branch(mainBranch):
 	# TODO: Sort branch naming by alphabet
 	#print_tree_(mainBranch["tree"])
+	
 	var branches = get_branches_from_main(mainBranch)
-	var branchesNamed = name_branches(branches)
+	var branchesNamed = ''
+	if mainBranch["deepest"]["depth"] > 2:
+		branchesNamed = name_branches(branches)
+	reset_checked_from_tree(mainBranch["tree"])
+	
 	text = branchesNamed + compoundNumNames[mainBranch["deepest"]["depth"]] + "ane"

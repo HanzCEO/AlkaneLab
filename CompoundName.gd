@@ -4,6 +4,10 @@ var compoundNumNames = [
 	"meth", "eth", "prop", "but",
 	"pent", "hex", "hept", "oct", "non", "dec"
 ]
+var multNames = [
+	'', 'di', 'tri', 'tetra', 'penta',
+	'hexa', 'hepta', 'octa', 'nona', 'deca'
+]
 const MAIN_BRANCH_COLOR = Color.AQUAMARINE
 const BRANCH_COLOR = Color.BLACK
 
@@ -180,9 +184,12 @@ func name_branches(branches):
 		names[compoundNumNames[length] + "yl"].append(branch["index"])
 	for key in names.keys():
 		names[key].sort()
-		namesFinal += ",".join(names[key]) + '-' + key + ' '
+		namesFinal += ",".join(names[key]) + '-' + multiplier_namer(names[key].size()) + key + ' '
 
 	return namesFinal
+
+func multiplier_namer(n):
+	return multNames[n-1]
 
 func walk_atom_children_2(atom):
 	var lengths = [0]
